@@ -4,7 +4,9 @@ using CMS.Data.Models;
 using CMS.Infrastructure.AutoMapper;
 using CMS.Infrastructure.Middlewares;
 using CMS.Infrastructure.Services;
+using CMS.Infrastructure.Services.Advertisements;
 using CMS.Infrastructure.Services.Categories;
+using CMS.Infrastructure.Services.Tracks;
 using CMS.Infrastructure.Services.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,6 +56,8 @@ namespace CMS.Web
             services.AddRazorPages();
 
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
+            services.AddTransient<IAdvertisementService, AdvertisementService>();
+            services.AddTransient<ITrackService, TrackService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IUserService, UserService>();

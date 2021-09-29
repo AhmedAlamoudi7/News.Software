@@ -37,6 +37,7 @@ namespace CMS.Infrastructure.Middlewares
                 case DuplicateEmailOrPhoneException _:
                 case EntityNotFoundException _:
                 case OperationFailedException _:
+                case InvalidDateException _:
                     response.msg = $"e:{exception.Message}";
                     response.close = 0;
                     response.status = 0;
