@@ -6,6 +6,7 @@ using CMS.Infrastructure.Middlewares;
 using CMS.Infrastructure.Services;
 using CMS.Infrastructure.Services.Advertisements;
 using CMS.Infrastructure.Services.Categories;
+using CMS.Infrastructure.Services.Posts;
 using CMS.Infrastructure.Services.Tracks;
 using CMS.Infrastructure.Services.Users;
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,7 @@ namespace CMS.Web
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
             services.AddTransient<IAdvertisementService, AdvertisementService>();
             services.AddTransient<ITrackService, TrackService>();
+            services.AddTransient<IPostService, PostService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IUserService, UserService>();

@@ -1,22 +1,22 @@
 ﻿using CMS.Core.Dtos;
 using CMS.Core.Enums;
+using CMS.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMS.Infrastructure.Services.Tracks
+namespace CMS.Infrastructure.Services.Posts
 {
-    public interface ITrackService
+    public interface IPostService
     {
         Task<ResponseDto> GetAll(Pagination pagination, Query query);
-        Task<int> Delete(int id);
-        Task<UpdateTrackDto> Get(int id);
-        Task<int> Create(CreateTrackDto dto);
+        Task<int> Create(CreatePostDto dto);
+        Task<UpdatePostDto> Get(int id);
         Task<int> UpdateStatus(int id, ContentStatus status);
-        Task<int> Update(UpdateTrackDto dto);
+        Task<int> Delete(int id);
+        Task<List<ContentChangeLogViewModel>> GetLog(int id);
 
     }
-
 }

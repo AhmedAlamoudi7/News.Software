@@ -33,6 +33,12 @@ namespace CMS.Infrastructure.Services.Users
         }
 
 
+        public async Task<List<UserViewModel>> GetAuthorList()
+        {
+            var users = await _db.Users.Where(x => !x.IsDelete && x.UserType == Core.Enums.UserType.ArticleAuthor).ToListAsync();
+            return _mapper.Map<List<UserViewModel>>(users);
+        }
+
         public async Task<ResponseDto> GetAll(Pagination pagination, Query query)
         {
             var queryString = _db.Users.Where(x => !x.IsDelete && (x.FullName.Contains(query.GeneralSearch) || string.IsNullOrWhiteSpace(query.GeneralSearch) || x.Email.Contains(query.GeneralSearch) || x.PhoneNumber.Contains(query.GeneralSearch))).AsQueryable();

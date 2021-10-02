@@ -18,6 +18,11 @@ namespace CMS.Core.Constants
             return new { status = 1, msg = "s: تم تحديث بيانات العنصر بنجاح ", close = 1 };
         }
 
+        public static object UpdateStatusSuccessResult()
+        {
+            return new { status = 1, msg = "s: تم تحديث الحالة  بنجاح ", close = 1 };
+        }
+
         public static object DeleteSuccessResult()
         {
             return new { status = 1, msg = "s: تم حذف العنصر بنجاح", close = 1 };

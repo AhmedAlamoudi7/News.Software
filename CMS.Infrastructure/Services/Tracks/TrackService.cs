@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CMS.Core.Dtos;
+using CMS.Core.Enums;
 using CMS.Core.Exceptions;
 using CMS.Core.ViewModels;
 using CMS.Data;
@@ -81,6 +82,7 @@ namespace CMS.Infrastructure.Services.Tracks
             {
                 track.TrackUrl = await _fileService.SaveFile(dto.Track, "Tracks");
             }
+           
             await _db.Tracks.AddAsync(track);
             await _db.SaveChangesAsync();
             return track.Id;
@@ -105,6 +107,19 @@ namespace CMS.Infrastructure.Services.Tracks
             _db.Tracks.Update(updatedTrack);
             await _db.SaveChangesAsync();
             return updatedTrack.Id;
+        }
+
+        public async Task<int> UpdateStatus(int id, ContentStatus status)
+        {
+            var track = await _db.Tracks.SingleOrDefaultAsync(x => x.Id == id && !x.IsDelete);
+            if (track == null)
+            {
+                throw new EntityNotFoundException();
+            }
+            track.Status = status;
+            _db.Tracks.Update(track);
+            await _db.SaveChangesAsync();
+            return track.Id;
         }
 
     }
