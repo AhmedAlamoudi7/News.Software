@@ -16,7 +16,7 @@ namespace CMS.Core.ViewModels
         public string OwnerName { get; set; }
         public CategoryViewModel Category { get; set; }
         public UserViewModel PublishedBy { get; set; }
-        public ContentStatus Status { get; set; }
+        public string Status { get; set; }
         public string CreatedAt { get; set; }
     }
 }

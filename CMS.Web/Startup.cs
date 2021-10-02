@@ -62,6 +62,7 @@ namespace CMS.Web
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddControllersWithViews();

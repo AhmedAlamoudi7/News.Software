@@ -1,5 +1,6 @@
 ﻿using CMS.Core.Constants;
 using CMS.Core.Dtos;
+using CMS.Core.Enums;
 using CMS.Infrastructure.Services.Advertisements;
 using CMS.Infrastructure.Services.Categories;
 using CMS.Infrastructure.Services.Tracks;
@@ -40,10 +41,26 @@ namespace CMS.Web.Controllers
 
 
         [HttpGet]
+        public async Task<IActionResult> GetLog(int Id)
+        {
+            var logs = await _trackService.GetLog(Id);
+            return View(logs);
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             ViewData["categories"] = new SelectList(await _categoryService.GetCategoryList(),"Id","Name");
             return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateStatus(int id, ContentStatus status)
+        {
+            await _trackService.UpdateStatus(id, status);
+            return Ok(Results.UpdateStatusSuccessResult());
         }
 
 

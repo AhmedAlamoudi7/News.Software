@@ -18,12 +18,14 @@ namespace CMS.Infrastructure.Services.Tracks
     {
         private readonly CMSDbContext _db;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
         private readonly IFileService _fileService;
 
-        public TrackService(IFileService fileService, CMSDbContext db, IMapper mapper)
+        public TrackService(IEmailService emailService,IFileService fileService, CMSDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
+            _emailService = emailService;
             _fileService = fileService;
         }
 
@@ -109,16 +111,35 @@ namespace CMS.Infrastructure.Services.Tracks
             return updatedTrack.Id;
         }
 
+        public async Task<List<ContentChangeLogViewModel>> GetLog(int id)
+        {
+            var changes = await _db.ContentChangeLogs.Where(x => x.ContentId == id && x.Type == ContentType.Track).ToListAsync();
+            return _mapper.Map<List<ContentChangeLogViewModel>>(changes);
+        }
+
         public async Task<int> UpdateStatus(int id, ContentStatus status)
         {
-            var track = await _db.Tracks.SingleOrDefaultAsync(x => x.Id == id && !x.IsDelete);
+            var track = await _db.Tracks.Include(x => x.PublishedBy).SingleOrDefaultAsync(x => x.Id == id && !x.IsDelete);
             if (track == null)
             {
                 throw new EntityNotFoundException();
             }
+            var changeLog = new ContentChangeLog();
+            changeLog.ContentId = track.Id;
+            changeLog.Type = ContentType.Track;
+            changeLog.Old = track.Status;
+            changeLog.New = status;
+            changeLog.ChangeAt = DateTime.Now;
+
+            await _db.ContentChangeLogs.AddAsync(changeLog);
+            await _db.SaveChangesAsync();
+
             track.Status = status;
             _db.Tracks.Update(track);
             await _db.SaveChangesAsync();
+
+            await _emailService.Send(track.PublishedBy.Email, "UPDATE Track STATUS !", $"YOUR Track NOW IS {status.ToString()}");
+
             return track.Id;
         }
 

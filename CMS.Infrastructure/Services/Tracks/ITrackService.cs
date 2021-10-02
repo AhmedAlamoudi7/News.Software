@@ -1,5 +1,6 @@
 ﻿using CMS.Core.Dtos;
 using CMS.Core.Enums;
+using CMS.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace CMS.Infrastructure.Services.Tracks
         Task<int> Create(CreateTrackDto dto);
         Task<int> UpdateStatus(int id, ContentStatus status);
         Task<int> Update(UpdateTrackDto dto);
-
+        Task<List<ContentChangeLogViewModel>> GetLog(int id);
     }
 
 }

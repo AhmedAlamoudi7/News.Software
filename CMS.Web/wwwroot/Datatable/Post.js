@@ -114,7 +114,6 @@ var KTDatatableAutoColumnHideDemo = function () {
                     
                       
 
-                    console.log(data.status, "a");
 
                     if (data.status == 'Pending') {
                         buttons = buttons +
