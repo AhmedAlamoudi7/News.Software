@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace CMS.Web.Controllers
 {
-    public class TrackController : Controller
+    public class TrackController : BaseController
     {
 
         private readonly ITrackService _trackService;
         private readonly ICategoryService _categoryService;
 
 
-        public TrackController(ITrackService trackService, ICategoryService categoryService)
+        public TrackController(ITrackService trackService, ICategoryService categoryService, IUserService userService) : base(userService)
         {
             _trackService = trackService;
             _categoryService = categoryService;

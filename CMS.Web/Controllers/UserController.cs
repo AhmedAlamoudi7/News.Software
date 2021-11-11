@@ -1,6 +1,7 @@
 ﻿using CMS.Core.Constants;
 using CMS.Core.Dtos;
 using CMS.Infrastructure.Services.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace CMS.Web.Controllers
 {
-    public class UserController : Controller
+
+    public class UserController : BaseController
     {
 
-        private readonly IUserService _userService;
-        
-        public UserController(IUserService userService)
+
+        public UserController(IUserService userService):base(userService)
         {
-            _userService = userService;
+
         }
 
         [HttpGet]

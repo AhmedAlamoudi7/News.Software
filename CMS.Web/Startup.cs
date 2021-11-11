@@ -52,8 +52,9 @@ namespace CMS.Web
                 config.Password.RequireUppercase = false;
                 config.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<CMSDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders().AddDefaultUI();
 
+            
             services.AddRazorPages();
 
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
